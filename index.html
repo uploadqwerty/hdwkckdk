@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>bio Sypza</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            height: 90vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .snow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: transparent;
+            z-index: -1;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10%;
+            color: white;
+            font-size: 1em; 
+            opacity: 0.8;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        .content-container {
+            padding: 20px; 
+            border-radius: 10px;
+            background-color: #111;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            width: 90%; 
+            max-width: 600px; 
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: bold;
+            font-size: 24px; 
+            text-shadow: 0 0 5px white, 0 0 10px white; 
+        }
+
+        .image-container {
+            text-align: center;
+        }
+
+        img {
+            border-radius: 10px;
+            max-width: 100%;
+            height: auto; 
+        }
+
+        .header-line {
+            border-top: 1px solid white;
+            margin: 5px 0;
+        }
+
+        .content {
+            padding-top: 5px;
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center; 
+        }
+
+        .button {
+            display: inline-flex; 
+            justify-content: center; 
+            align-items: center; 
+            background-color: #111; 
+            color: #ffffff; 
+            border-radius: 5px; 
+            padding: 8px 16px; 
+            font-size: 0.8rem; 
+             cursor :pointer ; 
+             text-decoration :none ; 
+             margin-left :5px ; 
+             transition :background-color 0.3s; 
+         }
+
+         .button:hover {
+             background-color:#222; 
+         }
+
+.audio-container {
+    background-color: #222;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    position: fixed;
+    bottom: 15px;
+    width: calc(100% - 40px);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+}
+
+
+         .audio-title {
+             flex-grow: 1;
+             text-align:center ;
+             display:flex ;
+             justify-content:center ; 
+         padding-left :20px;
+         padding-right :40px;
+          }
+
+         .audio-container img {
+             width :30px ;
+             height :30px ;
+             cursor:pointer ;
+         }
+         
+         @media (max-width: 600px) { 
+             h1 {
+                 font-size: 12px; 
+                 text-shadow: 0 0 5px white, 0 0 10px white; 
+             }
+             
+             .content-container {
+                 padding: 10px; 
+                 font-size: 12px; 
+             }
+             
+             .button {
+                 padding: 4px 8px; 
+                 font-size: 0.6rem; 
+             }
+         }
+    </style>
+</head>
+<body>
+    <div class="snow"></div>
+    <div class="content-container">
+        <div class="image-container">
+           <img src="https://i.pinimg.com/originals/25/e5/09/25e509bdb716ac69f04ad5e76e6c3b5c.gif" alt="Image">
+       </div>
+
+       <h1 id="name">安雅图戈娃·亚历山大 | 安雅图戈娃·亚历山大</h1>
+
+       <div class="header-line"></div>
+       <div class="content">Information about me:</div>
+       <div class="content">Nickname: Sypza</div>
+       <div class="content">Hobbies: Coding</div>
+       <div class="content">Country: Russian Federation</div>
+
+       <div class="header-line"></div>
+       <div class="content">GREAT ACTIVITY IN APP:</div>
+       <div class="content">Dota 2 // DDnet</div>
+       <div class="content">Visual Studio // Visual Code</div>
+
+       <div class="header-line"></div>
+       <div class="content">LINK</div>
+       <div class="button-container">
+           <a href="t.me/sypza" class="button">Telegram Account</a>
+           <a href="t.me/sypzawave" class="button">Telegram Channel</a>
+       </div>
+    </div>
+
+    <div class="audio-container">
+        <img id="playPauseButton" src="https://i.ibb.co/2kt6Bpc/223-3-B61668.png" alt="Play/Pause">
+        <div class="audio-title">music // sypza.mp3</div>
+        <audio id="audio" src="https://s19.aconvert.com/convert/p3r68-cdx67/g3cqb-nmwnx.mp3"></audio>
+    </div>
+
+    <script>
+        class TextScramble {
+           constructor(el) {
+               this.el = el;
+               this.chars = '!@#$%^&*()_-=+{}:"|<>?,./;';
+               this.update = this.update.bind(this);
+           }
+           
+           setText(newText) {
+               const oldText = this.el.innerText;
+               const length = Math.max(oldText.length, newText.length);
+               const promise = new Promise((resolve) => this.resolve = resolve);
+               this.queue = [];
+               
+               for (let i = 0; i < length; i++) {
+                   const from = oldText[i] || '';
+                   const to = newText[i] || '';
+                   const start = Math.floor(Math.random() * 40);
+                   const end = start + Math.floor(Math.random() * 40);
+                   this.queue.push({ from, to, start, end });
+               }
+               
+               cancelAnimationFrame(this.frameRequest);
+               this.frame = 0;
+               this.update();
+               return promise;
+           }
+           
+           update() {
+               let output = '';
+               let complete = 0;
+
+               for (let i = 0, n = this.queue.length; i < n; i++) {
+                   let { from, to, start, end, char } = this.queue[i];
+                   if (this.frame >= end) {
+                       complete++;
+                       output += to;
+                   } else if (this.frame >= start) {
+                       if (!char || Math.random() < 0.28) {
+                           char = this.randomChar();
+                           this.queue[i].char = char;
+                       }
+                       output += `<span class="dud">${char}</span>`;
+                   } else {
+                       output += from;
+                   }
+               }
+               
+               this.el.innerHTML = output;
+
+               if (complete === this.queue.length) {
+                   this.resolve();
+               } else {
+                   this.frameRequest = requestAnimationFrame(this.update);
+                   this.frame++;
+               }
+           }
+           
+           randomChar() {
+               return this.chars[Math.floor(Math.random() * this.chars.length)];
+           }
+        }
+
+        const el = document.getElementById('name');
+        const fx = new TextScramble(el);
+
+        function animateText() {
+           fx.setText('SYPZA').then(() => {
+               setTimeout(() => animateText(), 1000);
+           });
+        }
+
+        animateText();
+
+        // Audio Player Functionality
+        const audio = document.getElementById('audio');
+        const playPauseButton = document.getElementById('playPauseButton');
+
+        playPauseButton.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playPauseButton.src = "https://i.ibb.co/CBzWNBM/223-0-D7-B467.png"; // Выкл
+            } else {
+                audio.pause();
+                playPauseButton.src = "https://i.ibb.co/2kt6Bpc/223-3-B61668.png"; // Вкл
+            }
+        });
+    </script>
+</body>
+
+</html>
